@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.excel_loader import build_problem_config_from_excel
 from src.weather_sim import WeatherMonteCarlo
+from src.weather_generator import generate_level_conditions
 from solvers import BeamSearchSolver
 from src.models import State
 
@@ -50,9 +51,17 @@ def main():
     parser.add_argument("--samples", type=int, default=200, help="Monte Carlo samples for unknown weather levels")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
     parser.add_argument("--unknown_weather", action="store_true", help="Enable Monte Carlo for unknown-weather levels")
+    parser.add_argument("--gen_weather", action="store_true", help="Override day_conditions by generator for specified levels")
     args = parser.parse_args()
 
     cfg = build_problem_config_from_excel(args.excel, level_name=args.level)
+
+    # 针对第三、第四、第六关，按需求生成天气（独立采样），覆盖 day_conditions
+    if args.gen_weather and args.level in ("第三关", "第四关", "第六关"):
+        generated = generate_level_conditions(level=args.level, seed=args.seed)
+        # 如果 Excel 的 days_limit 与生成天数不一致，以生成器结果为准
+        cfg.days = len(generated)
+        cfg.day_conditions = generated
 
     if args.unknown_weather:
         run_level_with_weather(cfg, samples=args.samples, seed=args.seed, output_prefix=f"Result_{args.level}")
