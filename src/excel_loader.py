@@ -5,7 +5,6 @@ from configs import (
     BagConfig, EconomicConfig, DayCondition, default_weather_rules, SupplyPoint
 )
 
-
 def load_params_sheet(xls: pd.ExcelFile) -> Dict[str, float]:
     df = pd.read_excel(xls, "Params")
     params: Dict[str, float] = {}
@@ -14,7 +13,6 @@ def load_params_sheet(xls: pd.ExcelFile) -> Dict[str, float]:
         v = float(row["Value"])
         params[k] = v
     return params
-
 
 def load_nodes_sheet(xls: pd.ExcelFile) -> Dict[str, MapGraphNode]:
     df = pd.read_excel(xls, "Nodes")
@@ -34,7 +32,6 @@ def load_nodes_sheet(xls: pd.ExcelFile) -> Dict[str, MapGraphNode]:
         nodes[rid] = MapGraphNode(id=rid, name=t, type=std_type)
     return nodes
 
-
 def load_map_sheet(xls: pd.ExcelFile, nodes: Dict[str, MapGraphNode]) -> Tuple[List[MapGraphEdge], Dict[str, List[Tuple[str, float]]]]:
     df = pd.read_excel(xls, "Map")
     edges: List[MapGraphEdge] = []
@@ -51,7 +48,6 @@ def load_map_sheet(xls: pd.ExcelFile, nodes: Dict[str, MapGraphNode]) -> Tuple[L
         if bidirectional:
             adjacency.setdefault(dst, []).append((src, dist))
     return edges, adjacency
-
 
 def load_weather_sheet(xls: pd.ExcelFile, days_limit: int) -> List[DayCondition]:
     """
@@ -94,7 +90,6 @@ def load_weather_sheet(xls: pd.ExcelFile, days_limit: int) -> List[DayCondition]
             DayCondition(day=d, max_travel_dist=0.0, food_consumption=0.0, water_consumption=0.0, weather="Sunny")
             for d in range(1, days_limit + 1)
         ]
-
 
 def build_problem_config_from_excel(path: str, level_name: str = None) -> ProblemConfig:
     xls = pd.ExcelFile(path)
