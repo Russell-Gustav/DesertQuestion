@@ -14,8 +14,10 @@ def setup_plot_style():
     """设置绘图样式"""
     try:
         plt.style.use(PLOT_STYLE)
-    except (OSError, ValueError):
-        pass  # 如果样式不可用，使用默认样式
+    except (OSError, ValueError) as e:
+        # 如果样式不可用，使用默认样式（可选：取消下一行注释来显示警告）
+        # print(f"Warning: Plot style '{PLOT_STYLE}' not available, using default style")
+        pass
 
 
 def plot_results(x, y, xlabel='X', ylabel='Y', title='Results', save_path=None):
