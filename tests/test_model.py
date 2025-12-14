@@ -2,13 +2,10 @@
 测试数学模型模块
 """
 
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-
 import unittest
 import numpy as np
-from model import OptimizationModel
+
+from src.model import OptimizationModel
 
 
 class TestOptimizationModel(unittest.TestCase):

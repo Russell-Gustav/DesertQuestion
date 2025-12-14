@@ -2,14 +2,12 @@
 测试数据处理模块
 """
 
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-
 import unittest
 import pandas as pd
-from data_handler import DataHandler
 import tempfile
+import os
+
+from src.data_handler import DataHandler
 
 
 class TestDataHandler(unittest.TestCase):

@@ -6,6 +6,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from datetime import datetime
 from config import PLOT_STYLE, FIGURE_SIZE, DPI, OUTPUT_DIR
 
 
@@ -13,7 +14,7 @@ def setup_plot_style():
     """设置绘图样式"""
     try:
         plt.style.use(PLOT_STYLE)
-    except:
+    except (OSError, ValueError):
         pass  # 如果样式不可用，使用默认样式
 
 
@@ -149,7 +150,6 @@ def save_log(message, log_file='log.txt'):
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
     
     with open(log_path, 'a', encoding='utf-8') as f:
-        from datetime import datetime
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         f.write(f"[{timestamp}] {message}\n")
 
