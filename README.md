@@ -13,15 +13,19 @@ DesertQuestion/
 ├── config.py              # 配置文件
 ├── requirements.txt       # 项目依赖
 ├── src/                   # 源代码目录
+│   ├── __init__.py        # 包初始化
 │   ├── data_handler.py    # 数据处理模块（Excel读写）
 │   ├── model.py          # 数学模型模块（优化、仿真）
 │   └── utils.py          # 工具函数模块（可视化、统计）
 ├── data/                  # 数据目录
 │   ├── input/            # 输入数据目录
 │   └── output/           # 输出结果目录
-└── tests/                # 测试代码目录
-    ├── test_data_handler.py
-    └── test_model.py
+├── tests/                # 测试代码目录
+│   ├── __init__.py
+│   ├── test_data_handler.py
+│   └── test_model.py
+└── examples/             # 示例代码目录
+    └── desert_crossing.py  # 沙漠穿越问题示例
 ```
 
 ## 快速开始
@@ -34,8 +38,14 @@ pip install -r requirements.txt
 
 ### 2. 运行示例程序
 
+运行基础示例：
 ```bash
 python main.py
+```
+
+运行沙漠穿越问题示例：
+```bash
+python examples/desert_crossing.py
 ```
 
 ## 使用说明
@@ -201,6 +211,21 @@ python -m unittest discover tests
 - **seaborn**: 高级可视化
 
 ## 扩展开发
+
+### 沙漠穿越问题示例
+
+项目包含了一个具体的沙漠穿越问题示例 (`examples/desert_crossing.py`)，展示了完整的建模流程：
+
+1. 参数设置
+2. 建立优化模型
+3. 求解优化问题
+4. 结果保存
+5. 策略对比分析
+
+运行示例：
+```bash
+python examples/desert_crossing.py
+```
 
 ### 添加自定义模型
 
